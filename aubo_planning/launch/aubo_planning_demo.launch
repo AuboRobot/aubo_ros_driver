@@ -1,0 +1,14 @@
+<launch>
+  <arg name="sim" default="false" />
+  <arg name="debug" default="false" />
+
+  <!-- Remap follow_joint_trajectory -->
+  <remap if="$(arg sim)" from="/pos_joint_traj_controller/follow_joint_trajectory" to="/arm_controller/follow_joint_trajectory"/>
+
+  <!-- Launch moveit -->
+  <include file="$(find aubo_moveit_config)/launch/move_group.launch">
+    <arg name="debug" default="$(arg debug)" />
+    <arg name="robot_model" default="$(arg robot_model)" />
+  </include>
+  <node name="aubo_planning_demo" pkg="aubo_planning" type="test_custom_node" output="screen"  />
+</launch>

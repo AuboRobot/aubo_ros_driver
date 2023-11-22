@@ -1,0 +1,10 @@
+<?xml version="1.0"?>
+<launch>
+  <arg name="limited" default="false" doc="If true, limits joint range [-PI, PI] on all joints." />
+  <!-- <arg name="transmission_hw_interface" default="hardware_interface/PositionJointInterface" /> -->
+  <arg name="transmission_hw_interface" default="hardware_interface/EffortJointInterface" />
+  
+  <param unless="$(arg limited)" name="robot_description" command="$(find xacro)/xacro --inorder '$(find aubo_description)/urdf/aubo_i5_robot.urdf.xacro' transmission_hw_interface:=$(arg transmission_hw_interface) wheel_type:=$(arg wheel_type)" />
+  <param if="$(arg limited)" name="robot_description" command="$(find xacro)/xacro --inorder '$(find aubo_description)/urdf/aubo_i5_joint_limited_robot.urdf.xacro' transmission_hw_interface:=$(arg transmission_hw_interface)"/>
+
+</launch>

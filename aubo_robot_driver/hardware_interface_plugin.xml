@@ -1,0 +1,7 @@
+<library path="lib/libaubo_robot_driver_plugin">
+  <class name="aubo_driver/AuboHardwareInterface" type="aubo_driver::AuboHardwareInterface" base_class_type="hardware_interface::RobotHW">
+    <description>
+      Universal Robots ROS Driver as plugin
+    </description>
+  </class>
+</library>

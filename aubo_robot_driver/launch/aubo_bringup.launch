@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<launch>
+  <arg name="robot_model" default="aubo_i5"/>
+  <arg name="debug" default="false" doc="Debug flag that will get passed on to aubo_common.launch"/>
+  <arg name="robot_ip" doc="IP address by which the robot can be reached."/>
+  <arg name="tf_prefix" default="" doc="tf_prefix used for the robot."/>
+  <arg name="controllers" default="joint_state_controller pos_joint_traj_controller" doc="Controllers that are activated by default."/>
+  <arg name="stopped_controllers" default="pos_joint_traj_controller joint_group_vel_controller" doc="Controllers that are initally loaded, but not started."/>
+  <arg name="controller_config_file" default="$(find aubo_robot_driver)/config/aubo_i5_controllers.yaml" doc="Config file used for defining the ROS-Control controllers."/>
+  <arg name="robot_description_file" default="$(find aubo_description)/launch/load_aubo.launch" doc="Robot description launch file."/>
+  <!--arg name="kinematics_config" default="$(find aubo_description)/config/aubo_i5/default_kinematics.yaml" doc="Kinematics config file used for calibration correction. This will be used to verify the robot's calibration is matching the robot_description."/-->
+  <arg name="headless_mode" default="false" doc="Automatically send aubo_Script to robot to execute. On e-Series this does require the robot to be in 'remote-control' mode. With this, the aubo_Cap is not needed on the robot."/>
+  <arg name="aubo_hardware_interface_node_required" default="true" doc="Shut down ros environment if aubo_hardware_interface-node dies."/>
+
+  <include file="$(find aubo_robot_driver)/launch/aubo_common.launch" pass_all_args="true">
+    <arg name="use_tool_communication" value="false"/>
+  </include>
+</launch>
+
