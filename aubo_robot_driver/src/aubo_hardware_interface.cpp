@@ -189,33 +189,6 @@ int AuboHardwareInterface::Servoj(
         ->getMotionControl()
         ->setServoMode(true);           
     }
-    // 接口调用: 关节运动
-    int servoJoint_num = rpc_client_->getRobotInterface(robot_name)
-                             ->getMotionControl()
-                             ->servoJoint(traj, 0.2, 0.2, 0.01, 0.1, 200);
-
-    return 0;
-}
-
-int AuboHardwareInterface::Servoj(
-    const std::array<double, 6> joint_position_command)
-{
-    // 接口调用 : 获取机器人的名字
-    auto robot_name = rpc_client_->getRobotNames().front();
-
-    std::vector<double> traj(6, 0);
-    for (size_t i = 0; i < traj.size(); i++) {
-        traj[i] = joint_position_command[i];
-    }
-    
-    if(!rpc_client_->getRobotInterface(robot_name)
-                ->getMotionControl()
-                ->isServoModeEnabled()){
-                
-        rpc_client_->getRobotInterface(robot_name)
-        ->getMotionControl()
-        ->setServoMode(true);           
-    }
     // 接口调用: servoJoint
     while (true) {
         int servoJoint_num = rpc_client_->getRobotInterface(robot_name)
