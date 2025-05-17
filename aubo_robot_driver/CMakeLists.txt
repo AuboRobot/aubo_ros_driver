@@ -16,10 +16,23 @@ set(ENV{CPM_SOURCE_CACHE} $ENV{HOME}/.cache/CPM)
 # 下载 aubo_sdk 发布包(二进制方式引入)
     if(NOT aubo_sdk_POPULATED)
         include(FetchContent)
+        if(CMAKE_SYSTEM_PROCESSOR STREQUAL "aarch64")
+          # 使用 ARM64 版本 SDK 的 URL
+          message("${PROJECT_NAME}: current system processor type: selecting 'aarch64'.")
+          set(SDK_URL "https://download.aubo-robotics.cn/sdk/aubo_sdk-0.24.1-rc.3-Linux_aarch64+318754d.zip")
+          # set(SDK_URL "https://download.aubo-robotics.cn/sdk/aubo_sdk-0.25.0-rc.4-Linux_aarch64+81c34a8.zip")
+        else()
+          # 使用 x86_64 版本 SDK 的 URL
+          message("${PROJECT_NAME}: current system processor type: selecting 'x86'.")
+          # set(SDK_URL "https://download.aubo-robotics.cn/sdk/aubo_sdk-0.22.1-Linux_x86_64+2ed0c14.zip")
+          set(SDK_URL "https://download.aubo-robotics.cn/sdk/aubo_sdk-0.24.1-rc.3-Linux_x86_64+318754d.zip")
+          # set(SDK_URL "https://download.aubo-robotics.cn/sdk/aubo_sdk-0.25.0-rc.4-Linux_x86_64+81c34a8.zip")
+
+        endif()
+		
         FetchContent_Declare(
             aubo_sdk
-            #URL "https://download.aubo-robotics.cn/sdk/aubo_sdk-0.19.2-Linux_x86_64+a90aefb.zip"
-            URL "https://download.aubo-robotics.cn/sdk/aubo_sdk-0.22.1-Linux_x86_64+2ed0c14.zip"
+		      	URL ${SDK_URL}
         )
         FetchContent_Populate(aubo_sdk)
     endif()
